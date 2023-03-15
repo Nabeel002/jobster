@@ -1,0 +1,7 @@
+{% load crispy_forms_tags %}
+
+<form action="POST">
+{% csrf_token %}
+  {{ comment_form | crispy  }}
+  <button>add</button>
+</form>

@@ -1,0 +1,102 @@
+{% load static %}
+
+
+<nav class="navbar is-white
+ has-shadow pb-5" role="navigation" aria-label="main navigation" >
+  <div class="navbar-brand">
+    <a href="{% url 'index' %}">
+<div class="is-size-2">
+    <img style=" 
+    height: auto;
+    width: auto;
+    margin-bottom: -61px;
+    margin-top: -143px;
+    max-height: 110px;
+    max-width: 145px;" src=" {% static 'landing/images/logo.png' %} " alt="" >
+</div>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start "style="margin-right: 20px; margin-top: 20px;">
+         <div class="navbar-item">
+     <div class="control has-icons-left has-icon-right is-flex">
+      <form style="display:flex;" method="GET" action="{% url 'profile-search' %}">
+  <input style="border-right: 1px solid gray;" class="input" type="text" placeholder="Username" name="query" value="{{ request.GET.query }}">
+  <span class="icon is-small is-left">
+    @
+  </span>
+
+  <button style="background-color:transparent; border:0.25px solid gray; padding-right:1rem; padding-left:1rem; cursor: pointer;">  <i class="fas fa-search"></i></button>
+</form>
+</div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        {% if not user.is_authenticated %}
+        <div class="buttons" >
+          <a class="button is-dark mr-4" href="{% url 'account_signup' %}">
+           Sign up
+          </a>
+          <a href="{% url 'account_login' %}" class="button is-outlined is-responsive">
+            Log in
+          </a>
+        </div>
+        {% else %}
+        <div class="buttons">
+
+
+          <a href=" {% url 'feed' request.user.id %}" style="color: black;">
+            <span class="icon-text mr-4">
+              <span class="icon">
+                 <img  src=" {% static "landing/images/icons8-activity-feed-50.png" %} " alt="">
+              </span>
+              <span>Your Feed</span>
+            </span>
+            </a>
+                  <a href=" {% url 'jobs' %}" style="color: black;">
+<span class="icon-text mr-4">
+  <span class="icon">
+     <img  src=" {% static "landing/images/suitcase.png" %} " alt="">
+  </span>
+  <span>View jobs</span>
+</span>
+</a>
+
+  
+          <a href=" {% url 'create_job' %} " style="color: black;">
+<span class="icon-text mr-5">
+  <span class="icon">
+     <img  src=" {% static "landing/images/briefcase.png" %} " alt="">
+  </span>
+  <span>Post a job</span>
+</span>
+</a>
+          </button>
+
+           <div class="navbar-item has-dropdown is-hoverable" style="color: black;">
+        <a href="{% url 'profile' request.user.id %}" class="navbar-link" href="">
+          <p class="image is-36x36 mr-3 ">
+      <img class="is-rounded " src="{{ request.user.profile.picture.url }}">
+    </p> <span class="has-text-weight-semibold">{{ request.user.username }}</span>
+        </a>
+        <div class="navbar-dropdown is-right">
+        <a class="navbar-item" href="{% url 'account_logout' %} "> Logout</a>
+                <a class="navbar-item" href="{% url 'profile' request.user.id %}"> Profile</a>
+
+        </div>
+      </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

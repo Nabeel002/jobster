@@ -1,0 +1,10 @@
+{% extends "landing/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <form method="post"> 
+    {% csrf_token %} 
+     {{ form | crispy }}
+    <input type="submit" value="Save"> 
+</form> 
+{% endblock content %}

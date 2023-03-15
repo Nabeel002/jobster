@@ -1,0 +1,44 @@
+{% extends 'landing/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container">
+    <div class="">
+        <div class="mt-5 mb-5">
+            <a href="{{request.META.HTTP_REFERER|escape}}" class="is-link pt-5">&#8592; Back To Profile</a>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="">
+            <h5>Write the description of the job</h5>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="mt-3">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>Title</p>
+                {{ form.job_title|add_class:"input" }}
+                <p>Company name</p>
+                {{ form.company_name|add_class:"input" }}
+                <p>Salary(PA)</p>
+                {{ form.salary|add_class:"input" }}
+                <p>Location</p>
+                {{ form.location|add_class:"input" }}
+           <p>Description</p>     
+{{ form.description|add_class:"textarea" }}
+
+
+
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="button is-small mt-4">Submit!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

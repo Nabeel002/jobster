@@ -1,0 +1,77 @@
+{% extends 'landing/base.html' %}
+
+
+
+{% block content %}
+<div class="container">
+
+
+    {% for post in posts  %}
+    <a href=" {% url 'post_details' pk=post.pk %} " style="color: black;">
+    <article style="width: 50vw;" class="media m-5 p-6 card">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img class="is-rounded" src="{{ post.author.profile.picture.url }}">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content ">
+        <p>
+          <strong>{{ post.author }}</strong> 
+          <br>
+          {{ post.body }}
+        </p>
+      </div>
+      <nav class="is-flex is-justify-content-space-around">
+        <!-- <div class="delete-wrapper level-item">
+          <span class="material-symbols-outlined">
+  delete
+  </span>
+  
+  <span class="material-symbols-outlined">
+  edit
+  </span>
+        </div> -->
+        <div class="level-left" style="margin-top: 5rem;">
+          <a href=" {% url 'post_details' pk=post.pk %} " class="level-item" style="color: black;">
+        <span class="material-symbols-outlined">
+  chat_bubble
+  </span>
+          </a>
+  
+          </a>
+            {% if request.user == post.author %}
+          <a class="level-item" style="color: black;">
+  <span class="material-symbols-outlined">
+  delete
+  </span>     
+    </a>
+    {% endif %}
+        </div>
+        
+  
+      </nav>
+    </div>
+  
+  </article>
+  </a>
+  {% endfor %}
+  
+{% comment %} {% if follower %}
+
+{% for f in  follower %}
+
+{{ f.username }}
+
+
+{% endfor %}
+
+{% else %}
+no followers try following someone
+{% endif %} {% endcomment %}
+
+</div>
+
+
+
+{% endblock content %}

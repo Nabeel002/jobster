@@ -1,0 +1,146 @@
+{% extends "landing/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+  body{
+     background-color: #f3f2ef;
+     box-sizing: border-box;
+     padding: 0;
+     margin: 0;
+     min-height: 100%;
+     
+
+  }
+
+   html { height: 100% }
+a{
+  color: black;
+}
+
+</style>
+<div class="grid-parent">
+ 
+   <article class="main m-5 card">
+     <a href="{% url 'profile_edit' request.user.id %}">
+        <div class="top"><span class="material-symbols-outlined" style="position: absolute; left:143px; top:56px;">
+edit
+</span>
+</a>
+</div>
+
+  
+<a href="{% url 'profile_edit' request.user.id %}">
+<img class="image is-rounded pic" src="{{ user.profile.picture.url }}" alt="">
+
+</a>
+
+
+        
+        <div class="bottom">
+        {% if user.is_authenticated %}
+        <h3>{{ user.username }}</h3>
+      {% endif %}
+      {% if profile.proffession %}       
+      <p style="text-decoration: underline;">{{ profile.proffession }}</p>
+
+      {% else %}
+
+    <a href=" {% url 'profile_edit' request.user.id %} "><p>Add what you do <span style="font-size: .9rem;" class="material-symbols-outlined">
+edit_square
+</span></p></a> 
+      {% endif %}
+          <a href="{% url 'profile' request.user.id %}" class="btn">View your profile</a>
+        </div>
+</article>
+
+  <div class="second">
+    <div class="is-flex is-flex-direction-column	">
+    <div class="card share m-5 ">
+      <textarea style="width: 100%; resize: none;" placeholder="Write something..."   class="js-modal-trigger textarea"  data-target="modal-js-example"></textarea>
+    </div>
+    
+    {% for post in post_list  %}
+  <a href=" {% url 'profile' request.user.id %} " style="color: black;">
+
+    <article class="media m-5 p-6 card">
+  <figure class="media-left mr-4">
+      <img class="is-rounded pic-post"  src="{{ post.author.profile.picture.url }}">
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>{{ profile.user }}</strong> <small>{{ profile.proffession }}</small> <small>{{ post.created_on }}</small>
+        <br>
+   {{ post.body }}
+      </p>
+    </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item">
+            <a href=" {% url 'post_details' pk=post.pk %} " class="level-item" style="color: black;">
+      <span class="material-symbols-outlined">
+chat_bubble
+</span>
+        </a>
+        </a>
+      
+       
+      </div>
+    </nav>
+  </div>
+  <div class="media-right">
+    {% if request.user == post.author %}  
+    <a href=" {% url 'post_remove' pk=post.pk %} "> <span class="material-symbols-outlined" style="color: rgb(137, 137, 137);">
+    {% endif %}
+cancel
+</span> </a>
+  </div>
+</article>
+</a>
+{% endfor %}
+
+</div>
+    
+  </div>
+  <div class="col m-5">
+    <div class="card friends">
+      <h1 class="has-text-centered is-size-5">Keep in touch</h1>
+      <hr />
+      <ul class="is-flex is-flex-direction-column is-align-items-center">
+        {% for user in  suggested_user  %}
+          <a href=" {% url 'profile' user.user.id %} ">
+        <li class="is-flex is-flex-direction-column is-align-items-center">
+          <img src="{{ user.picture.url }}" alt="Helen Johnson" />
+          <h1 >{{ user.user }}</h1>
+          
+        </li>
+        </a>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+  
+
+        <div class="is-flex is-flex-direction-column">
+  
+<div id="modal-js-example" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-content">
+    <div class="box">
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+
+        <button class="button">Add</button>
+      </form>
+    </div>
+  </div>
+
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+{% endblock content %}

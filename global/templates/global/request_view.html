@@ -1,0 +1,43 @@
+{% extends "landing/base.html" %}
+{% block content %}
+
+
+<style>
+    .div{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -50px;
+        width: 160px;
+        height: 150px;
+    }
+</style>
+<ul >
+
+    {% if requests %}=
+{% for req in  requests %}
+   <ul class="card m-5 p-6 notification is-primary is-light">
+       
+        <a href="  {% url 'profile' pk=req.author.pk %} "><li style="font-weight: 600; text-transform: capitalize;"  class="is-size-4">{{ req.author }}  </li></a>
+        <li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2 is-size-6">{{ req.request}}</li>
+       
+        <hr/>
+        
+    </ul>
+{% endfor %}
+
+{% else %}
+
+
+<div class="div">
+    <h1 class="has-text-centered	">No request for this job</h1>
+</div>
+
+{% endif %}
+   
+    <hr/>
+</ul>
+  
+{% endblock content %}
+

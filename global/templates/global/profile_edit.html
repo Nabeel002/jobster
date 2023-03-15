@@ -1,0 +1,55 @@
+{% extends 'landing/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="container">
+    <div class="mt-4">
+        <div class="">
+            <a href="{% url 'profile' object.pk %}" class="btn btn-light">Back To Profile</a>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="">
+            <h5>Update Your Profile</h5>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div style="width: 25vw; margin-bottom:2rem;">
+
+                   {{ form.name|add_class:"input is-primary" }}
+                </div> 
+                  <div style="width: 25vw; margin-bottom:2rem;">
+
+                   {{ form.proffession|add_class:"input is-primary" }}
+                </div> 
+                  <div style="width: 25vw; margin-bottom:2rem;">
+
+                   {{ form.birth_date|add_class:"input is-primary"|attr:"type:date" }}
+                </div> 
+                  <div style="width: 25vw; margin-bottom:2rem;">
+
+                   {{ form.location|add_class:"input is-primary" }}
+                </div> 
+                 <div style="width: 25vw; margin-bottom:2rem;">
+{{ form.picture|attr:"type:file" }}
+                   
+                </div> 
+                <div style="width: 20vw; margin-bottom:2rem;">
+
+                   {{ form.resume|attr:"type:file" }}
+                </div> 
+                <div class="d-grid gap-2">
+                    <button class="button mt-4 is-small is-primary mb-6">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

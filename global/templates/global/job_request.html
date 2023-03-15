@@ -1,0 +1,34 @@
+{% extends "landing/base.html" %}
+
+{% block content %}
+<div class="container">
+{% if job %}
+    {% for object in job %}
+    <a href=" {% url 'job_details' pk=object.pk %} ">
+    <ul class="card m-5 p-6 ">
+      
+        <li style="font-weight: 600; text-transform: capitalize;"  class="is-size-4">{{ object.job_title }}</li>
+        <li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2 is-size-6">{{ object.company_name }}</li>
+      <div class="is-flex" style="font-size: .9rem;">
+<li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2  mr-5 ml-2"> <span class="mr-2">₹</span> {{ object.salary }} <span style="margin-left: 0.1rem;">PA</span> </li>
+<li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2 "> <i class="fa fa-map-marker" style="font-size: .9rem;"></i> {{ object.location }}</li>
+      </div>  
+        <li>{{ object.description }}</li>
+
+    <div class="notification is-warning mt-3">
+  <li><a href=" {% url 'posters' pk=object.pk %} ">View the request you got on this job !</a></li>
+</div>
+
+
+       
+        <hr/>
+    </ul>
+    </a>
+      {% endfor %}
+{% else %}
+No jobs posted
+
+    {% endif %}
+    
+</div>
+{% endblock content %}

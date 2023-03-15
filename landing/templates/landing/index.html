@@ -1,0 +1,31 @@
+{% extends "landing/base.html" %}
+{% load static %}
+{% block content %}
+
+<section>
+  <div class="hero-body">
+    <div class="hero-content-wrapper">
+      <p class="is-size-2	title-hero" style="display: flex; flex-direction:column;">
+       Your job is to dream big ours is to make it come true!
+       <span class="excerpt is-size-6 has-text-grey-light		"> Join the community to get your dream job today </span>
+      </p>
+      <p class="subtitle mt-4 " style="margin-left: -5px;">
+        <a href="{% url 'account_login' %}" class="button is-light is-responsive pr-6 pl-6 pt-4 pb-4 mr-3">Login</a>
+        <a href="{% url 'account_signup' %}"class="button is-dark is-responsive pr-6 pl-6 pt-4 pb-4">Join   <br></a>
+      </p>
+    </div>
+    <div class="hero-image">
+      <img class="responsive" src=" {% static "landing/images/4333606.jpg" %} " alt="">
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+{% endblock content %}
+
+

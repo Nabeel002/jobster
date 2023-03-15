@@ -1,0 +1,39 @@
+{% extends "landing/base.html" %}
+
+{% block content %}
+<div class="container">
+
+    {% for object in object_list %}
+    <a href=" {% url 'job_details' pk=object.pk %} ">
+    <ul class="card m-5 p-6 ">
+       
+        <li style="font-weight: 600; text-transform: capitalize;"  class="is-size-4">{{ object.job_title }}</li>
+        <li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2 is-size-6">{{ object.company_name }}</li>
+      <div class="is-flex" style="font-size: .9rem;">
+<li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2  mr-5 ml-2"> <span class="mr-2">₹</span> {{ object.salary }} <span style="margin-left: 0.1rem;">PA</span> </li>
+<li style="font-weight: 500; text-transform: uppercase;"  class="mt-2 mb-2 "> <i class="fa fa-map-marker" style="font-size: .9rem;"></i> {{ object.location }}</li>
+      </div>  
+        <li>{{ object.description }}</li>
+       
+        <hr/>
+
+        {% if request.user == object.author %}
+<div class="is-flex is-justify-content-space-between	">
+  <b>this job was posted by you</b> 
+
+       <a href=" {% url 'delete' pk=object.pk %} "> <span class="material-symbols-outlined" style="color: rgb(137, 137, 137);">
+delete
+       </a>
+  
+</div>
+       
+{% endif %}
+        
+    </ul>
+    </a>
+    {% empty %}
+    <li>No job</li>
+    {% endfor %}
+    
+</div>
+{% endblock content %}

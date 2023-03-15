@@ -1,0 +1,39 @@
+{% extends 'landing/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-5 col-sm-6">
+            <a href="{% url 'post-list' %}" class="btn btn-light">Go back</a>
+        </div>
+    </div>
+    {% if profile_list %}
+    {% for profile in profile_list %}
+    <a style="text-decoration: none;" class="text-primary" href="{% url 'profile' profile.pk %}">
+    <article style="width:25vw;" class="media m-5 p-6 card">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            <img class="is-rounded" src="{{ profile.picture.url }}">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content ">
+            <p>
+              <strong>{{ profile.user }}</strong> 
+              <br>
+              {% if profile.location %}
+              {{ profile.location }}
+              {% endif %}
+              <p>Followers: {{ profile.followers.all.count }}</p>
+            </p>
+        </div>
+        </div>
+      
+      </article>
+    </a>
+    {% endfor %}
+    {% else %}
+   <div style="margin-top:-35rem;">No result found</div> 
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,156 @@
+{% extends "landing/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+        <div class="first ">
+<div class="pattern-container">
+    <img class="position-abs" src="{{ profile.picture.url }}" alt="">
+</div>
+<div class="is-flex is-justify-content-space-between	is-align-content-center	">
+
+  <h2 class="name is-size-3">
+    {% if profile.name %}
+    {{ profile.name }}
+    {% else %}
+      {{ user.username }}
+    {% endif %}
+    <br> <span style="font-size: 1rem; padding-top: -50px; color:gray;"><p>
+      {% if profile.proffession %}
+      {{ profile.proffession }}
+
+
+      {% endif %}</p></span>
+       <span style="font-size: .9rem; padding-top: -50px; color:gray;"><p>
+     
+         <a class="link" href="#open-modal"> <p>View video resume</p> </a>
+     </p></span>
+
+      <span style="font-size: .9rem; padding-top: -50px; color:gray;"><p>
+      {% if request.user == user %}
+         <a class="link" href="{% url 'request' pk=profile.pk %}"> <p>View your posted jobs</p> </a>
+         {% endif %}
+     </p></span>
+      <span style="font-size: .9rem; padding-top: -50px; color:gray;"><p>
+        {% if profile.location %}
+        {{ profile.location }}
+        {% endif %}</p></span>
+      </h2>
+       <div class="level-left">
+       
+        {% if request.user == user %}
+          
+        <a href=" {% url 'profile_edit' profile.pk %} " class="level-item mr-5"> 
+<span class="material-symbols-outlined ml-4" style="line-height: normal;">
+edit
+</span>
+</a>   
+
+   <a href=" {% url 'resume_upload' profile.pk %} " class="level-item mr-5"> 
+    upload your resume  
+<span class="material-symbols-outlined ml-4" style="line-height: normal;">
+  upload
+</span>
+</a>    
+        {% endif %}
+      </div>
+</div>
+<hr class="style-1">
+<div class="connect-wraper" style="margin-bottom: 2rem;" >
+  <div class="is-flex is-flex-direction-row is-justify-content-space-between">
+     <nav class="level is-mobile">
+      <div class="is-flex is-justify-content-space-between is-flex-direction-row is-align-content-center	">
+        <p class="is-size-5 mr-5">Connects: {{ number_of_followers }}</p>
+        {% if user == request.user %}    
+        {% else %}
+        {% if is_following %}
+        <form method="POST" action=" {% url 'remove' profile.pk %} ">
+          {% csrf_token %}
+          <button class="button is-disabled is-small" type="submit" >Unfollow</button>
+        </form>  
+        {% else %}
+        <form method="POST" action="{% url 'follow' profile.pk %}">
+          {% csrf_token %}
+          <button class="button is-small  mr-4"  type="submit" >follow</button>
+          </form>
+          {% endif %}
+          {% endif %}
+
+          <div>
+             <p class="is-size-5 ml-4">Resume: <a href=" {{ profile.resume.url }} ">View resume</a></p>
+          </div>
+      </div>
+    </nav>
+  </div>
+</div>
+        </div>
+
+<div class="second">
+        {% for post in posts  %}
+  <a href=" {% url 'post_details' pk=post.pk %} " style="color: black;">
+  <article class="media m-5 p-6 card">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img class="is-rounded" src="{{ profile.picture.url }}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content ">
+      <p>
+        <strong>{{ post.author }}</strong> 
+        <br>
+        {{ post.body }}
+      </p>
+    </div>
+    <nav class="is-flex is-justify-content-space-around">
+      <!-- <div class="delete-wrapper level-item">
+        <span class="material-symbols-outlined">
+delete
+</span>
+
+<span class="material-symbols-outlined">
+edit
+</span>
+      </div> -->
+      <div class="level-left" style="margin-top: 5rem;">
+        <a href=" {% url 'post_details' pk=post.pk %} " class="level-item" style="color: black;">
+      <span class="material-symbols-outlined">
+chat_bubble
+</span>
+        </a>
+
+        </a>
+          {% if request.user == user %}
+        <a class="level-item" style="color: black;">
+<span class="material-symbols-outlined">
+delete
+</span>     
+  </a>
+  {% endif %}
+      </div>
+      
+
+    </nav>
+  </div>
+
+</article>
+</a>
+{% endfor %}
+
+<div id="open-modal" class="modal-window">
+  <div>
+    <a href="#" title="Close" class="modal-close">Close</a>
+    <video width='400' controls>
+<source src="{{ profile.video_resume.url }}" type='video/mp4'>
+Your browser does not support the video tag.
+</video>
+  </div>
+
+</div>
+</div>
+
+{% endblock content %}
+
+
+
