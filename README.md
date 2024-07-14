@@ -14,25 +14,6 @@
                 <li>Integration with CKEditor for rich text editing in job descriptions.</li>
             </ul>
         </section>
-          <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h1, h2, h3 {
-            color: #333;
-        }
-        code {
-            font-family: Consolas, monospace;
-            background-color: #f0f0f0;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-    </style>  
       <section class="section">
             <h2>Installation</h2>
             <p>To run the Job Portal Web Application locally:</p>
