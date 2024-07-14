@@ -35,9 +35,6 @@
                 <li>Upload resumes and video resumes for job applications and profile enhancement.</li>
             </ul>
         </section>
-        <footer>
-            <p>&copy; 2024 Your Company. All rights reserved.</p>
-        </footer>
     </div>
 </body>
 </html>
